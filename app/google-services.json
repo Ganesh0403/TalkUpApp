@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "524624352958",
+    "firebase_url": "https://talkup-e8dd7.firebaseio.com",
+    "project_id": "talkup-e8dd7",
+    "storage_bucket": "talkup-e8dd7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:524624352958:android:b057eb5fbe3a59cece70ef",
+        "android_client_info": {
+          "package_name": "com.example.talkup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "524624352958-kigmso6rdq8hqhp620cmgkhtorsufert.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.talkup",
+            "certificate_hash": "11d273471e836becb0355bdacbc0df60a5cb1941"
+          }
+        },
+        {
+          "client_id": "524624352958-qcv79dm1nhu84kqbr95dp8e9jfa9pfq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKUcm4miR-UvfhziUEGdkpoKPz4cDkNBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "524624352958-qcv79dm1nhu84kqbr95dp8e9jfa9pfq2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

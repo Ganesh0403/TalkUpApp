@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/login_image"
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:src="@drawable/login_photo"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitCenter"/>
+
+            <EditText
+                android:id="@+id/login_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_image"
+                android:layout_alignParentStart="true"
+                android:hint="Enter Email.."
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:drawableStart="@drawable/email"
+                android:drawablePadding="4dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/inputs"/>
+
+            <EditText
+                android:id="@+id/login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_email"
+                android:layout_alignParentStart="true"
+                android:hint="Enter Password.."
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:drawableStart="@drawable/password"
+                android:drawablePadding="4dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/inputs"/>
+
+            <TextView
+                android:id="@+id/forget_password_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_password"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="23dp"
+                android:layout_marginTop="2dp"
+                android:text="Forget Password ?"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAlignment="textEnd"/>
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/forget_password_link"
+                android:padding="7dp"
+                android:layout_marginLeft="19dp"
+                android:layout_marginRight="19dp"
+                android:layout_marginTop="4dp"
+                android:text="Login"
+                android:textAllCaps="false"
+                android:textColor="@android:color/background_light"
+                android:textSize="24sp"
+                android:background="@drawable/buttons"/>
+
+            <TextView
+                android:id="@+id/need_new_account_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_button"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="23dp"
+                android:layout_marginTop="5dp"
+                android:text="Create New Account ?"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/login_using"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/need_new_account_link"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="23dp"
+                android:layout_marginTop="15dp"
+                android:text="Or Login using your "
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textAlignment="center"/>
+
+            <Button
+                android:id="@+id/phone_login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_using"
+                android:padding="7dp"
+                android:layout_marginLeft="19dp"
+                android:layout_marginRight="19dp"
+                android:layout_marginTop="4dp"
+                android:text="Phone"
+                android:textAllCaps="false"
+                android:textColor="@android:color/background_light"
+                android:textSize="20sp"
+                android:drawableStart="@drawable/phone"
+                android:background="@drawable/buttons"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
