@@ -58,7 +58,7 @@ public class ChatActivity extends AppCompatActivity {
     private String messageReceiverId, messageReceiverName, messageReceiverImage, messageSenderId;
     private Toolbar ChatToolBar;
     private FirebaseAuth mAuth;
-    private DatabaseReference RootRef;
+    private DatabaseReference RootRef, ContactsRef;
     private ImageButton SendMessageButton, SendFilesButton;
     private EditText MessageInputText;
     private ProgressDialog loadingBar;
@@ -80,6 +80,7 @@ public class ChatActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         messageSenderId = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance().getReference();
+        ContactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts");
 
         messageReceiverId = getIntent().getExtras().get("visit_user_id").toString();
         messageReceiverName = getIntent().getExtras().get("visit_user_name").toString();
@@ -260,6 +261,12 @@ public class ChatActivity extends AppCompatActivity {
                             Uri downloadUrl = task.getResult();
                             myUrl = downloadUrl.toString();
 
+                            try {
+                                myUrl = Encryption_Decryption.encrypt(myUrl,messageSenderId+messageReceiverId);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
                             Map messageTextBody = new HashMap();
                             messageTextBody.put("message", myUrl);
                             messageTextBody.put("name", fileUri.getLastPathSegment());
@@ -267,6 +274,7 @@ public class ChatActivity extends AppCompatActivity {
                             messageTextBody.put("from", messageSenderId);
                             messageTextBody.put("to", messageReceiverId);
                             messageTextBody.put("messageId", messagePushId);
+                            messageTextBody.put("key",messageSenderId+messageReceiverId);
                             messageTextBody.put("time", saveCurrentTime);
                             messageTextBody.put("date", saveCurrentDate);
 
@@ -333,6 +341,12 @@ public class ChatActivity extends AppCompatActivity {
                             Uri downloadUrl = task.getResult();
                             myUrl = downloadUrl.toString();
 
+                            try {
+                                myUrl = Encryption_Decryption.encrypt(myUrl,messageSenderId+messageReceiverId);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
                             Map messageTextBody = new HashMap();
                             messageTextBody.put("message", myUrl);
                             messageTextBody.put("name", fileUri.getLastPathSegment());
@@ -340,6 +354,7 @@ public class ChatActivity extends AppCompatActivity {
                             messageTextBody.put("from", messageSenderId);
                             messageTextBody.put("to", messageReceiverId);
                             messageTextBody.put("messageId", messagePushId);
+                            messageTextBody.put("key", messageSenderId + messageReceiverId);
                             messageTextBody.put("time", saveCurrentTime);
                             messageTextBody.put("date", saveCurrentDate);
 
@@ -407,6 +422,11 @@ public class ChatActivity extends AppCompatActivity {
         }else{
             String messageSenderRef = "Messages/" + messageSenderId + "/" + messageReceiverId;
             String messageReceiverRef = "Messages/" + messageReceiverId + "/" + messageSenderId;
+            try {
+                messageText = Encryption_Decryption.encrypt(messageText,messageSenderId+messageReceiverId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             DatabaseReference userMessageKeyRef = RootRef.child("Messages").child(messageSenderId)
                     .child(messageReceiverId).push();
@@ -419,6 +439,7 @@ public class ChatActivity extends AppCompatActivity {
             messageTextBody.put("from", messageSenderId);
             messageTextBody.put("to", messageReceiverId);
             messageTextBody.put("messageId", messagePushId);
+            messageTextBody.put("key", messageSenderId+messageReceiverId);
             messageTextBody.put("time", saveCurrentTime);
             messageTextBody.put("date", saveCurrentDate);
 

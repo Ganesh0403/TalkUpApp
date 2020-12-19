@@ -32,7 +32,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
     private List<Messages> userMessagesList;
     private FirebaseAuth mAuth;
-    private DatabaseReference usersRef;
+    private DatabaseReference usersRef, ContactsRef;
 
     public MessageAdapter(List<Messages> userMessagesList) {
         this.userMessagesList = userMessagesList;
@@ -51,12 +51,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     @Override
     public void onBindViewHolder(@NonNull final MessageViewHolder holder, final int position) {
         String messageSenderId = mAuth.getCurrentUser().getUid();
-        Messages messages = userMessagesList.get(position);
+        final Messages messages = userMessagesList.get(position);
 
         String fromUserId = messages.getFrom();
         String fromMessageType = messages.getType();
 
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(fromUserId);
+        ContactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts");
 
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,7 +87,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
                 holder.senderMessageText.setBackgroundResource(R.drawable.sender_messages_layout);
                 holder.senderMessageText.setTextColor(Color.BLACK);
-                holder.senderMessageText.setText(messages.getMessage()+"\n \n"+messages.getTime()+" - "+messages.getDate());
+//                holder.senderMessageText.setText(messages.getMessage()+"\n \n"+messages.getTime()+" - "+messages.getDate());
+                String mess="";
+                try {
+                    mess = Encryption_Decryption.decrypt(messages.getMessage(),messages.getKey());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                holder.senderMessageText.setText(mess+"\n \n"+messages.getTime()+" - "+messages.getDate());
             }else{
 
                 holder.receiverMessageText.setVisibility(View.VISIBLE);
@@ -94,19 +102,40 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
                 holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
                 holder.receiverMessageText.setTextColor(Color.BLACK);
-                holder.receiverMessageText.setText(messages.getMessage()+"\n \n"+messages.getTime()+" - "+messages.getDate());
+//                holder.receiverMessageText.setText(messages.getMessage()+"\n \n"+messages.getTime()+" - "+messages.getDate());
+                String mess="";
+                try {
+                    mess = Encryption_Decryption.decrypt(messages.getMessage(),messages.getKey());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                holder.receiverMessageText.setText(mess+"\n \n"+messages.getTime()+" - "+messages.getDate());
             }
         }
         else if(fromMessageType.equals("image")){
             if(fromUserId.equals(messageSenderId)){
                 holder.messageSenderPicture.setVisibility(View.VISIBLE);
 
-                Picasso.with(holder.itemView.getContext()).load(messages.getMessage()).into(holder.messageSenderPicture);
+                String mess="";
+                try {
+                    mess = Encryption_Decryption.decrypt(messages.getMessage(),messages.getKey());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                Picasso.with(holder.itemView.getContext()).load(mess).into(holder.messageSenderPicture);
             }else {
                 holder.receiverProfileImage.setVisibility(View.VISIBLE);
                 holder.messageReceiverPicture.setVisibility(View.VISIBLE);
 
-                Picasso.with(holder.itemView.getContext()).load(messages.getMessage()).into(holder.messageReceiverPicture);
+                String mess="";
+                try {
+                    mess = Encryption_Decryption.decrypt(messages.getMessage(),messages.getKey());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                Picasso.with(holder.itemView.getContext()).load(mess).into(holder.messageReceiverPicture);
             }
         }
         else if(fromMessageType.equals("pdf") || (fromMessageType.equals("docx"))){
@@ -147,7 +176,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                                     holder.itemView.getContext().startActivity(intent);
                                 }
                                 if(i==1){
-                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessagesList.get(position).getMessage()));
+                                    String mess="";
+                                    try {
+                                        mess = Encryption_Decryption.decrypt(userMessagesList.get(position).getMessage(),userMessagesList.get(position).getKey());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mess));
                                     holder.itemView.getContext().startActivity(intent);
                                 }
                                 if(i==2){
@@ -201,8 +236,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                                     holder.itemView.getContext().startActivity(intent);
                                 }
                                 if(i==1){
+                                    String mess="";
+                                    try {
+                                        mess = Encryption_Decryption.decrypt(userMessagesList.get(position).getMessage(),userMessagesList.get(position).getKey());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
                                     Intent intent = new Intent(holder.itemView.getContext(),ImageViewerActivity.class);
-                                    intent.putExtra("url",userMessagesList.get(position).getMessage());
+                                    intent.putExtra("url",mess);
                                     holder.itemView.getContext().startActivity(intent);
                                 }
                                 if(i==2){
@@ -238,7 +279,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                                     holder.itemView.getContext().startActivity(intent);
                                 }
                                 if(i==1){
-                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessagesList.get(position).getMessage()));
+                                    String mess="";
+                                    try {
+                                        mess = Encryption_Decryption.decrypt(userMessagesList.get(position).getMessage(),userMessagesList.get(position).getKey());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mess));
                                     holder.itemView.getContext().startActivity(intent);
                                 }
                             }
@@ -282,8 +329,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                                     holder.itemView.getContext().startActivity(intent);
                                 }
                                 if(i==1){
+                                    String mess="";
+                                    try {
+                                        mess = Encryption_Decryption.decrypt(userMessagesList.get(position).getMessage(),userMessagesList.get(position).getKey());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
                                     Intent intent = new Intent(holder.itemView.getContext(),ImageViewerActivity.class);
-                                    intent.putExtra("url",userMessagesList.get(position).getMessage());
+                                    intent.putExtra("url",mess);
                                     holder.itemView.getContext().startActivity(intent);
                                 }
                             }

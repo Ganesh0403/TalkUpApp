@@ -1,12 +1,12 @@
 package com.example.talkup;
 
 public class Messages {
-    private String from,type,message,to,messageId,time,date,name;
+    private String from,type,message,to,messageId,time,date,name,key;
 
     public Messages() {
     }
 
-    public Messages(String from, String type, String message, String to, String messageId, String time, String date, String name) {
+    public Messages(String from, String type, String message, String to, String messageId, String time, String date, String name, String key) {
         this.from = from;
         this.type = type;
         this.message = message;
@@ -15,6 +15,7 @@ public class Messages {
         this.time = time;
         this.date = date;
         this.name = name;
+        this.key = key;
     }
 
     public String getFrom() {
@@ -33,9 +34,7 @@ public class Messages {
         this.type = type;
     }
 
-    public String getMessage() {
-        return message;
-    }
+    public String getMessage() { return message; }
 
     public void setMessage(String message) {
         this.message = message;
@@ -80,4 +79,8 @@ public class Messages {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getKey(){return key;}
+
+    public void setKey(String key){ this.key = key;}
 }
