@@ -1,3 +1,3 @@
 # TalkUpApp
-The App is like Telegram.
+The App is like WhatsApp.
 Chat App
